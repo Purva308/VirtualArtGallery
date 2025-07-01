@@ -1,0 +1,65 @@
+create database VirtualArtGallery;
+use virtualartgallery;
+
+create table Artist
+(
+ArtistID int Primary Key auto_increment,
+Name varchar(100) not null,
+Biography text,
+BirthDate date,
+Nationality varchar(50),
+Website varchar(255),
+ContactInformation int unique
+);
+
+create table Artwork
+(
+ArtworkID int Primary Key auto_increment,
+Title varchar(200) not null,
+Description text,
+CreationDate date,
+Medium varchar(100),
+ImageURL varchar(255),
+ArtistID int not null references Artists(ArtistID) on delete cascade on update cascade
+);
+
+create table User
+(
+UserID int Primary Key auto_increment,
+Username varchar(50) unique not null,
+Password varchar(255) not null,
+Email varchar(100) unique not null,
+FirstName varchar(50),
+LastName varchar(50),
+DateOfBirth date,
+Profile_Picture varchar(255)
+FavoriteArtworks int references Artwork(ArtworkID) on delete cascade on update cascade
+);
+
+create table Gallery
+(
+GalleryID int Primary Key auto_increment,
+Name varchar(100) not null,
+Description text,
+Location varchar(255),
+OpeningHours varchar(100),
+ArtistID int references Artists(ArtistID) on delete cascade on update cascade-- Curator
+);
+
+create table User_Favorite_Artwork
+(
+UserID int,
+ArtworkID int,
+primary key(UserID ,ArtworkID),
+foreign key(UserID) references User (UserID) on delete cascade on update cascade,
+foreign key(ArtworkID) references Artwork (ArtworkID) on delete cascade on update cascade
+);
+
+create table Artwork_Gallery
+(
+ArtworkID int,
+GalleryID int,
+primary key (ArtworkID,GalleryID),
+foreign Key (ArtworkID) references Artwork (ArtworkID) on delete cascade on update cascade,
+foreign Key (GalleryID) references Gallery (GalleryID) on delete cascade on update cascade
+);
