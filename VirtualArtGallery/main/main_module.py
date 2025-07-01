@@ -45,23 +45,6 @@ def input_valid_password(prompt="Enter password:"):
 def validate_foreign_key(entity_list, id_to_check, key_method):
     return any(getattr(e, key_method)() == id_to_check for e in entity_list)
 
-
-def get_next_user_id(gallery):
-    users = gallery.getAllUser()
-    return max((user.get_userid() for user in users), default=0) + 1
-
-def get_next_artist_id(gallery):
-    artists = gallery.getAllArtist()
-    return max((artist.get_artist_id() for artist in artists), default=0) + 1
-
-def get_next_artwork_id(gallery):
-    artworks = gallery.getAllArtwork()
-    return max((art.get_artwork_id() for art in artworks), default=0) + 1
-
-def get_next_gallery_id(gallery):
-    galleries = gallery.getAllGallery()
-    return max((g.get_gallery_id() for g in galleries), default=0) + 1
-
 def artwork_menu(gallery):
     while True:
         print("\n=========== Artwork Menu ==========")
@@ -95,7 +78,6 @@ def artwork_menu(gallery):
 
                 if artwork_id:
                     print(f"Artwork Added Successfully!  Artwork ID: {artwork_id}")
-
                 else:
                     print("Failed to Add Artwork.")
 
